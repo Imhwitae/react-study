@@ -1,5 +1,5 @@
-import {useState} from "react";
-// import './App.css'
+import {useEffect, useState} from "react";
+import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
@@ -15,6 +15,7 @@ import Event from "./routes/Event.jsx";
 function App() {
     const [shoes, setShoes] = useState(data);
     const navigate = useNavigate();
+    let [fade, setFade] = useState('');
 
   return (
     <>
