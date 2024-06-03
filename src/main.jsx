@@ -5,13 +5,14 @@ import './index.css'
 import {BrowserRouter} from "react-router-dom";
 import {ApiProvider} from "@reduxjs/toolkit/query/react";
 import store from "./store.js";
+import {Provider} from "react-redux";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <ApiProvider store={store}>
+        <Provider store={store}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-        </ApiProvider>
+        </Provider>
     </React.StrictMode>,
 )
