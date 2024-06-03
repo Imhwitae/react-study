@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Nav} from "react-bootstrap";
 
 // let YellowButton = styled.button`
@@ -84,7 +84,7 @@ export default function Detail(props) {
                     </Nav.Link>
                 </Nav.Item>
             </Nav>
-            <TabContent tab={tab}/>
+            <TabContent tab={tab} shoes={props.shoes}/>
         </div>
     )
 }
@@ -104,6 +104,6 @@ function TabContent(props) {
     }, [props.tab]);
 
     return <div className={'start ' + fade}>
-            {[<div>content1</div>, <div>content2</div>, <div>content3</div>][props.tab]}
+            {[<div>{props.shoes[0].title}</div>, <div>content2</div>, <div>content3</div>][props.tab]}
         </div>
 }

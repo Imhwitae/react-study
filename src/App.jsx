@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Col, Container, Nav, Navbar, Row} from "react-bootstrap";
@@ -10,12 +10,15 @@ import Card from "./component/Card.jsx";
 import Detail from "./routes/Detail.jsx";
 import About from "./routes/About.jsx";
 import Event from "./routes/Event.jsx";
+import Cart from "./routes/Cart.jsx";
+
+let Context1 = createContext();
 
 
 function App() {
     const [shoes, setShoes] = useState(data);
     const navigate = useNavigate();
-    let [fade, setFade] = useState('');
+    let [product, setProduct] = useState([10, 11, 12]);
 
   return (
     <>
@@ -23,8 +26,8 @@ function App() {
             <Container>
                 <Navbar.Brand onClick={() => {navigate("/")}}>Navbar</Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link onClick={() => {navigate("/")}}>Home</Nav.Link>
-                    <Nav.Link onClick={() => {navigate("/detail")}}>Cart</Nav.Link>
+                    <Nav.Link onClick={() => {navigate("/detail/0")}}>detail</Nav.Link>
+                    <Nav.Link onClick={() => {navigate("/cart")}}>Cart</Nav.Link>
                     <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
             </Container>
@@ -73,8 +76,13 @@ function App() {
             }/>
             {/*파라미터는 여러개 사용 가능*/}
             <Route path="/detail/:id" element={
-                <Detail shoes={shoes} />
+                <Context1.Provider value={{product, shoes}}>
+                    <Detail shoes={shoes} />
+                </Context1.Provider>
             } />
+            <Route path="/cart" element={
+                <Cart />
+            }/>
 
             <Route path="/about" element={<About />}>
                 <Route path="member" element={<div>Member info</div>}/>
