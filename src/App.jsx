@@ -3,6 +3,7 @@ import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
+import axios from "axios";
 
 import data from './data.js'
 import Card from "./component/Card.jsx";
@@ -52,6 +53,21 @@ function App() {
                             }
                         </Row>
                     </Container>
+                    {/* 서버에서 가져온 데이터 shoes 데이터에 추가 */}
+                    <button onClick={() => {
+                        // 로딩 중... UI 띄우기
+                        axios.get('https://codingapple1.github.io/shop/data2.json')
+                        .then((data) => {
+                            let shoesCopy = [...shoes, ...data.data];
+                            setShoes(shoesCopy);
+                        // 로딩 중... UI 숨기기
+                        }).catch(() => {
+                            // 로딩 중... UI 숨기기
+                            console.log('fail');
+                        })
+                    //  응용: 버튼 2회 누를 때 7,8,9번 상품 가져오기
+                    //  버튼 누른 횟수를 저장해서 해보자
+                    }}>버튼</button>
                 </>
             }/>
             {/*파라미터는 여러개 사용 가능*/}
