@@ -2,6 +2,8 @@ import {useParams} from "react-router-dom";
 import styled from "styled-components";
 import {useContext, useEffect, useState} from "react";
 import {Nav} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {addData} from "../store.js";
 
 // let YellowButton = styled.button`
     //background: yellow;
@@ -17,6 +19,8 @@ export default function Detail(props) {
     let [checkNum, setCheckNum] = useState('');
     let [tab, setTab] = useState(0);
     let [pageFade, setPagePade] = useState('');
+    let dispatch = useDispatch();
+    let stockCount = 3;
 
     useEffect(() => {
         // 타이머
@@ -58,7 +62,13 @@ export default function Detail(props) {
                     <h4 className="pt-5">{result.title}</h4>
                     <p>{result.content}</p>
                     <p>{result.price}원</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button className="btn btn-danger" onClick={() =>{
+                        dispatch(addData({
+                            id: stockCount++,
+                            name: result.title,
+                            count: 1
+                        }));
+                    }}>주문하기</button>
                     {/*<input type='text' onChange={(e) => {*/}
                     {/*    isNaN(e.target.value) ? alert('숫자만 입력') : null*/}
                     {/*    }*/}
