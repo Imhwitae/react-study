@@ -33,6 +33,16 @@ export default function Detail(props) {
         let fadeTimer = setTimeout(() => {
             setPagePade('end');
         }, 10);
+        
+        // local storage에 상품의 번호 저장
+        let watched = localStorage.getItem('watched');
+        watched = JSON.parse(watched);
+        console.log(result);
+        watched.push(result.id);
+        watched = new Set(watched);
+        watched = Array.from(watched);
+        console.log(watched);
+        localStorage.setItem('watched', JSON.stringify(watched));
 
         // clean up function
         return () => {
@@ -100,6 +110,7 @@ export default function Detail(props) {
 }
 
 function TabContent(props) {
+    // 탭 메뉴 fade 효과 주기
     let [fade, setFade] = useState('');
 
     useEffect(() => {
@@ -114,6 +125,7 @@ function TabContent(props) {
     }, [props.tab]);
 
     return <div className={'start ' + fade}>
+            {/* [props.tab]으로 배열의 요소에 접근 */}
             {[<div>{props.shoes[0].title}</div>, <div>content2</div>, <div>content3</div>][props.tab]}
         </div>
 }
